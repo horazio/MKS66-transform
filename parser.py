@@ -25,7 +25,8 @@ The file follows the following format:
                   draw the lines of the edge matrix to the screen
                   display the screen
          save: clear the screen, then
-               draw the lines of the edge matrix to the screen
+               draw the lines of the edge mGoes through the file named filename and performs all of the actions listed in that file.
+The file follows the following format:atrix to the screen
                save the screen to a file -
                takes 1 argument (file name)
          quit: end parsing
@@ -33,4 +34,21 @@ The file follows the following format:
 See the file script for an example of the file format
 """
 def parse_file( fname, points, transform, screen, color ):
-    pass
+    with open(fname) as file:
+        fd = file.read()
+    fd = fd.split("\n")
+
+    for x in fd:
+        if(x == "line"):
+            add_edge(points, x[0], x[1], x[2], x[3], x[4], x[5])
+        if(x == "ident"):
+            transform = ident(transform)
+        if(x == "scale"):
+            matrix_mult(make_scale(x[0], x[1], x[2]), transform)
+        if(x == "translate"):
+            matrix_mult(make_translate(x[0], x[1], x[2]), transform)
+        if(x == "rotate"):
+
+        if(x == "apply"):
+        if(x == "display"):
+        if(x == "save"):
