@@ -9,10 +9,10 @@ def draw_lines( matrix, screen, color ):
 
     point = 0
     while point < len(matrix) - 1:
-        draw_line( matrix[point][0],add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
-                   matrix[point][1],
-                   matrix[point+1][0],
-                   matrix[point+1][1],
+        draw_line( int(matrix[point][0]),
+                   int(matrix[point][1]),
+                   int(matrix[point+1][0]),
+                   int(matrix[point+1][1]),
                    screen, color)
         point+= 2
 
@@ -33,7 +33,7 @@ def draw_line( x0, y0, x1, y1, screen, color ):
         xt = x0
         yt = y0
         x0 = x1
-        y0 = y1add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
+        y0 = y1
         x1 = xt
         y1 = yt
 
@@ -51,7 +51,7 @@ def draw_line( x0, y0, x1, y1, screen, color ):
 
             while x < x1:
                 plot(screen, color, x, y)
-                if d > 0:add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
+                if d > 0:
                     y+= 1
                     d+= B
                 x+= 1
@@ -70,7 +70,7 @@ def draw_line( x0, y0, x1, y1, screen, color ):
                     y-= 1
                     d-= B
                 x+= 1
-                d+= Aadd_edge( matrix, x0, y0, z0, x1, y1, z1 ):
+                d+= A
             #end octant 8 while
             plot(screen, color, x1, y1)
         #end octant 8

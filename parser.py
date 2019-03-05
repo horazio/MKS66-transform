@@ -34,21 +34,52 @@ The file follows the following format:atrix to the screen
 See the file script for an example of the file format
 """
 def parse_file( fname, points, transform, screen, color ):
+
     with open(fname) as file:
         fd = file.read()
     fd = fd.split("\n")
 
-    for x in fd:
+    for i in range(len(fd)):
+        x = fd[i]
+
         if(x == "line"):
-            add_edge(points, x[0], x[1], x[2], x[3], x[4], x[5])
+            x = fd[i + 1].split()
+            add_edge(points, int(x[0]), int(x[1]), int(x[2]), int(x[3]), int(x[4]), int(x[5]))
+
         if(x == "ident"):
-            transform = ident(transform)
+            ident(transform)
+
         if(x == "scale"):
-            matrix_mult(make_scale(x[0], x[1], x[2]), transform)
-        if(x == "translate"):
-            matrix_mult(make_translate(x[0], x[1], x[2]), transform)
+            x = fd[i + 1].split()
+            matrix_mult(make_scale(int(x[0]), int(x[1]), int(x[2])), transform)
+
+        if(x == "move"):
+            x = fd[i + 1].split()
+            matrix_mult(make_translate(int(x[0]), int(x[1]), int(x[2])), transform)
+
         if(x == "rotate"):
+            x = fd[i + 1].split()
+            if(x[0] == "x"):
+                matrix_mult(make_rotX(int(x[1])), transform)
+            if(x[0] == "y"):
+                matrix_mult(make_rotY(int(x[1])), transform)
+            if(x[0] == "z"):
+                matrix_mult(make_rotZ(int(x[1])), transform)
 
         if(x == "apply"):
+            matrix_mult(transform, points)
+
         if(x == "display"):
+            clear_screen(screen)
+            draw_lines(points, screen, color)
+            display(screen)
+
         if(x == "save"):
+            x = fd[i + 1].split()
+
+            clear_screen(screen)
+            draw_lines(points, screen, color)
+            save_extension(screen, x[0])
+
+        if(x == "quit"):
+            return None
